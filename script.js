@@ -282,7 +282,7 @@ if (contactForm) {
         const formObject = Object.fromEntries(formData.entries());
 
         // 3. Send the data to your backend server
-        fetch('http://localhost:3000/submit-form', {
+        fetch('https://av-productions-backend.onrender.com', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
