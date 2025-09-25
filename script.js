@@ -64,10 +64,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (liveContent) {
         const eventConfig = {
             eventTitle: "EVENT COVERAGE",
-            eventName: "KIMS HOSPITAL EVENT",
+            eventName: "BOOK LAUNCH EVENT",
             eventDescription: "Watch the celebration live from the venue. We are honored to be the official production partners for this Corporate event.",
             previewImageUrl: "assets/live/thumbnails/live.jpg",
-            eventDate: "2025-09-27T10:00:00",
+            eventDate: "2025-09-27T17:00:00",
             liveStreamUrl: "https://www.youtube.com/embed/LXb3EKWsInQ",
             replayUrl: "https://www.youtube.com/embed/LXb3EKWsInQ"
         };
