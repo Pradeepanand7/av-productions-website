@@ -73,85 +73,149 @@ if (counterSection) {
     observer.observe(counterSection);
 }
 
-    // --- LIVE EVENT SECTION LOGIC ---
-    const liveContent = document.getElementById('live-content');
-    if (liveContent) {
-        const eventConfig = {
-            eventTitle: "EVENT COVERAGE",
-            eventName: "BOOK LAUNCH EVENT",
-            eventDescription: "Watch the celebration live from the venue. We are honored to be the official production partners for this Corporate event.",
-            previewImageUrl: "assets/live/thumbnails/live.jpg",
-            eventDate: "2025-09-27T17:00:00",
-            liveStreamUrl: "https://www.youtube.com/embed/LXb3EKWsInQ",
-            replayUrl: "https://www.youtube.com/embed/LXb3EKWsInQ"
-        };
+    // --- LIVE EVENT SECTION LOGIC (UPDATED) ---
+const liveContent = document.getElementById('live-content');
 
-        const liveNavlink = document.getElementById('live-nav-link');
-        const heroLiveBtn = document.getElementById('hero-live-btn');
-        const eventTitleEl = document.getElementById('live-event-title');
-        const countdownView = document.getElementById('countdown-view');
-        const playerView = document.getElementById('player-view');
-        const endedView = document.getElementById('ended-view');
-        const livePlayer = document.getElementById('live-player');
-        const livePreviewImage = document.getElementById('live-preview-image');
-        const liveEventName = document.getElementById('live-event-name');
-        const liveEventDescription = document.getElementById('live-event-description');
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
-
-        eventTitleEl.innerText = eventConfig.eventTitle;
-        liveEventName.innerText = eventConfig.eventName;
-        liveEventDescription.innerText = eventConfig.eventDescription;
-        livePreviewImage.src = eventConfig.previewImageUrl;
-
-        const targetDate = new Date(eventConfig.eventDate).getTime();
+if (liveContent) {
+    const eventConfig = {
+        // --- 1. SET YOUR EVENT DETAILS HERE ---
+        // If there is NO upcoming event, set eventDate to a past date (e.g., "2020-01-01")
+        eventDate: "2025-09-27T17:00:00", 
         
-        const interval = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            const isLive = distance <= 60000 && distance > - (1000 * 60 * 60 * 4);
+        eventTitle: "EVENT COVERAGE",
+        eventName: "BOOK LAUNCH EVENT",
+        eventDescription: "Watch the celebration live from the venue.",
+        previewImageUrl: "assets/live/thumbnails/live.jpg",
+        liveStreamUrl: "https://www.youtube.com/embed/LXb3EKWsInQ", // YouTube Embed Link
+        
+        // --- 2. INSTAGRAM DETAILS (Shows when no event is active) ---
+        // Paste the ID of your reel here (e.g. for instagram.com/reel/C_xyz123/, the ID is C_xyz123)
+        instagramReelId: "DBS8uB4S_lK", 
+        instagramProfileUrl: "https://www.instagram.com/avproductions"
+    };
 
-            liveNavlink.style.display = 'list-item';
-            heroLiveBtn.style.display = 'inline-block';
+    // DOM Elements
+    const liveNavlink = document.getElementById('live-nav-link');
+    const heroLiveBtn = document.getElementById('hero-live-btn');
+    const eventTitleEl = document.getElementById('live-event-title');
+    
+    // Views
+    const countdownView = document.getElementById('countdown-view');
+    const playerView = document.getElementById('player-view');
+    const instagramView = document.getElementById('instagram-view'); // New View
+
+    // Content Elements
+    const livePlayer = document.getElementById('live-player');
+    const instaPlayer = document.getElementById('insta-player');
+    const instaRedirectBtn = document.getElementById('insta-redirect-btn');
+    const livePreviewImage = document.getElementById('live-preview-image');
+    const liveEventName = document.getElementById('live-event-name');
+    const liveEventDescription = document.getElementById('live-event-description');
+    
+    // Timer Elements
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    // --- SETUP INSTAGRAM VIEW ---
+    // This constructs the embed URL for the reel
+    const instaEmbedUrl = `https://www.instagram.com/p/${eventConfig.instagramReelId}/embed/captioned/?cr=1&v=14&wp=540`;
+    instaPlayer.src = instaEmbedUrl;
+    instaRedirectBtn.href = eventConfig.instagramProfileUrl;
+
+    // --- LOGIC ---
+    const targetDate = new Date(eventConfig.eventDate).getTime();
+
+    const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        // "isLive" means we are within 4 hours AFTER the start time
+        const isLive = distance <= 0 && distance > - (1000 * 60 * 60 * 4);
+        const isUpcoming = distance > 0;
+
+        if (isUpcoming) { 
+            // --- SCENARIO 1: UPCOMING EVENT ---
+            eventTitleEl.style.display = 'block';
+            eventTitleEl.innerText = eventConfig.eventTitle;
             
-            if (distance > 60000) { // BEFORE
-                liveNavlink.querySelector('a').innerHTML = '🕒 Upcoming Event';
+            liveNavlink.style.display = 'list-item';
+            liveNavlink.querySelector('a').innerHTML = '🕒 Upcoming Event';
+            liveNavlink.querySelector('a').href = '#live-event';
+            
+            if(heroLiveBtn) {
+                heroLiveBtn.style.display = 'inline-block';
                 heroLiveBtn.innerHTML = '🕒 View Upcoming Event';
                 heroLiveBtn.href = '#live-event';
-                liveNavlink.querySelector('a').href = '#live-event';
-                countdownView.style.display = 'block';
-                playerView.style.display = 'none';
-                endedView.style.display = 'none';
-                daysEl.innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                hoursEl.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                minutesEl.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                secondsEl.innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            } else if (isLive) { // DURING
-                liveNavlink.querySelector('a').innerHTML = '🔴 Live Now';
-                heroLiveBtn.innerHTML = '🔴 Watch The Live Event Now!';
-                heroLiveBtn.href = '#live-event';
-                liveNavlink.querySelector('a').href = '#live-event';
-                countdownView.style.display = 'none';
-                playerView.style.display = 'block';
-                endedView.style.display = 'none';
-                if (livePlayer.src !== eventConfig.liveStreamUrl + "?autoplay=1") {
-                    livePlayer.setAttribute('src', eventConfig.liveStreamUrl + "?autoplay=1");
-                }
-                clearInterval(interval);
-            } else { // AFTER
-                liveNavlink.querySelector('a').innerHTML = '🎬 Latest Event Coverage';
-                heroLiveBtn.innerHTML = '🎬 Watch Our Latest Event!';
-                heroLiveBtn.href = eventConfig.replayUrl;
-                liveNavlink.querySelector('a').href = eventConfig.replayUrl;
-                countdownView.style.display = 'none';
-                playerView.style.display = 'none';
-                endedView.style.display = 'block';
-                clearInterval(interval);
             }
-        }, 1000);
-    }
+
+            // Show Countdown, Hide others
+            countdownView.style.display = 'block';
+            playerView.style.display = 'none';
+            instagramView.style.display = 'none';
+
+            // Populate Info
+            liveEventName.innerText = eventConfig.eventName;
+            liveEventDescription.innerText = eventConfig.eventDescription;
+            livePreviewImage.src = eventConfig.previewImageUrl;
+
+            // Timer Logic
+            daysEl.innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            hoursEl.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            minutesEl.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            secondsEl.innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+        } else if (isLive) { 
+            // --- SCENARIO 2: LIVE NOW ---
+            eventTitleEl.style.display = 'block';
+            
+            liveNavlink.style.display = 'list-item';
+            liveNavlink.querySelector('a').innerHTML = '🔴 Live Now';
+            liveNavlink.querySelector('a').href = '#live-event';
+
+            if(heroLiveBtn) {
+                heroLiveBtn.style.display = 'inline-block';
+                heroLiveBtn.innerHTML = '🔴 Watch Live!';
+                heroLiveBtn.href = '#live-event';
+            }
+
+            // Show Player, Hide others
+            countdownView.style.display = 'none';
+            instagramView.style.display = 'none';
+            playerView.style.display = 'block';
+
+            if (livePlayer.src !== eventConfig.liveStreamUrl + "?autoplay=1") {
+                livePlayer.setAttribute('src', eventConfig.liveStreamUrl + "?autoplay=1");
+            }
+
+        } else { 
+            // --- SCENARIO 3: NO EVENT (DEFAULT) ---
+            // This is where we show the Instagram Reel
+            
+            eventTitleEl.style.display = 'none'; // Hide the "EVENT COVERAGE" title
+            
+            // Update Nav Link to point to social media
+            liveNavlink.style.display = 'list-item';
+            liveNavlink.querySelector('a').innerHTML = '📷 Our Instagram';
+            liveNavlink.querySelector('a').href = eventConfig.instagramProfileUrl;
+            liveNavlink.querySelector('a').target = "_blank";
+
+            // Hide the Hero Button (or point it to Insta)
+            if(heroLiveBtn) {
+                heroLiveBtn.style.display = 'none'; 
+            }
+
+            // Show Instagram, Hide others
+            countdownView.style.display = 'none';
+            playerView.style.display = 'none';
+            instagramView.style.display = 'flex'; // Using flex to center content
+            
+            // Stop the timer since we don't need it
+            clearInterval(interval);
+        }
+    }, 1000);
+}
 
     // --- GALLERY FOLDER LOGIC (Restored) ---
     const gallerySection = document.querySelector('#gallery');
