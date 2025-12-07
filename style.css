@@ -316,37 +316,91 @@ section {
     width: 100%;
     height: 100%;
 }
-/* --- INSTAGRAM VIEW STYLING --- */
-#instagram-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.instagram-container {
-    background: #000;
+/* --- INSTAGRAM CARD STYLING --- */
+.instagram-card {
+    display: block;
+    position: relative;
+    width: 300px; /* Standard Reel Width */
+    height: 533px; /* 9:16 Aspect Ratio */
+    margin: 2rem auto;
     border-radius: 12px;
     overflow: hidden;
-    width: 350px; /* Width of a standard phone */
-    height: 620px; /* Height of a vertical reel */
-    margin: 2rem auto;
-    box-shadow: 0 10px 30px rgba(255, 106, 0, 0.2); /* Orange glow */
+    box-shadow: 0 10px 40px rgba(255, 106, 0, 0.3); /* Premium Orange Glow */
     border: 1px solid #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.instagram-container iframe {
+.instagram-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(255, 106, 0, 0.5);
+}
+
+.insta-cover-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Mobile responsiveness for the reel */
+/* The dark overlay that makes text pop */
+.insta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.instagram-card:hover .insta-overlay {
+    background: rgba(0,0,0,0.1); /* Lighten on hover */
+}
+
+/* The Play Button Circle */
+.insta-play-btn {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 106, 0, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(5px);
+}
+
+.insta-overlay p {
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Little Instagram Icon in top right */
+.insta-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 450px) {
-    .instagram-container {
+    .instagram-card {
         width: 100%;
-        max-width: 320px;
-        height: 580px;
+        max-width: 280px;
+        height: 500px;
     }
 }
 
