@@ -93,30 +93,53 @@
         </section>
         
         <section id="live-event" class="live-event-section">
-            <div class="container">
-                <div id="live-content">
-                    <h2 id="live-event-title"></h2>
-                    <div id="countdown-view">
-                        <img id="live-preview-image" src="" alt="Event Preview" class="live-preview-image">
-                        <h3 id="live-event-name"></h3>
-                        <p id="live-event-description"></p>
-                        <div class="countdown-timer">
-                            <div><span id="days">00</span><small>Days</small></div>
-                            <div><span id="hours">00</span><small>Hours</small></div>
-                            <div><span id="minutes">00</span><small>Minutes</small></div>
-                            <div><span id="seconds">00</span><small>Seconds</small></div>
-                        </div>
-                    </div>
-                    <div id="player-view" style="display: none;">
-                        <p class="live-subtitle">🔴 You are watching the live event</p>
-                        <div class="video-container"><iframe id="live-player" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
-                    </div>
-                     <div id="ended-view" style="display: none;">
-                        <p class="live-subtitle">This event has concluded. Thank you for watching!</p>
-                    </div>
+    <div class="container">
+        <div id="live-content">
+            
+            <h2 id="live-event-title" style="display: none;"></h2>
+
+            <div id="countdown-view" style="display: none;">
+                <img id="live-preview-image" src="" alt="Event Preview" class="live-preview-image">
+                <h3 id="live-event-name"></h3>
+                <p id="live-event-description"></p>
+                <div class="countdown-timer">
+                    <div><span id="days">00</span><small>Days</small></div>
+                    <div><span id="hours">00</span><small>Hours</small></div>
+                    <div><span id="minutes">00</span><small>Minutes</small></div>
+                    <div><span id="seconds">00</span><small>Seconds</small></div>
                 </div>
             </div>
-        </section>
+
+            <div id="player-view" style="display: none;">
+                <p class="live-subtitle">🔴 You are watching the live event</p>
+                <div class="video-container">
+                    <iframe id="live-player" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div id="instagram-view">
+                <h2 style="margin-bottom: 1rem;">Catch Us on Instagram</h2>
+                <p class="live-subtitle">Check out our latest highlights and reels!</p>
+                
+                <div class="instagram-container">
+                    <iframe 
+                        id="insta-player" 
+                        class="instagram-media" 
+                        src="" 
+                        allowtransparency="true" 
+                        allowfullscreen="true" 
+                        frameborder="0" 
+                        scrolling="no">
+                    </iframe>
+                </div>
+                
+                <br>
+                <a id="insta-redirect-btn" href="" target="_blank" class="cta-button outline-btn">View Full Profile</a>
+            </div>
+
+        </div>
+    </div>
+</section>
 
         <section id="gallery" class="gallery-section">
             <div class="container">
