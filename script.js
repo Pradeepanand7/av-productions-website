@@ -28,36 +28,50 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // --- COUNTER ANIMATION ---
-    const counterSection = document.querySelector('.about-section');
-    if (counterSection) {
-        let hasAnimated = false;
-        const startCounters = () => {
-            document.querySelectorAll('.counter').forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                let current = 0;
-                const increment = target / 200;
-                const updateCounter = () => {
-                    if (current < target) {
-                        current += increment;
-                        counter.innerText = Math.ceil(current);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                updateCounter();
-            });
-        };
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !hasAnimated) {
-                startCounters();
-                hasAnimated = true;
-                observer.unobserve(counterSection);
+   // --- ANIMATED COUNTERS FIX ---
+const counters = document.querySelectorAll('.counter');
+const speed = 200; // The lower the slower
+
+const animateCounters = () => {
+    counters.forEach(counter => {
+        const updateCount = () => {
+            // Get the target number from the data-target attribute
+            const target = +counter.getAttribute('data-target');
+            // Get the current number displayed
+            const count = +counter.innerText;
+            
+            // Calculate the step size (so they all finish at the same time)
+            const inc = target / speed;
+
+            // If current count is less than target, keep adding
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(updateCount, 20); // Run this function again in 20ms
+            } else {
+                counter.innerText = target; // Ensure it ends exactly on the target
             }
-        }, { threshold: 0.3 });
-        observer.observe(counterSection);
-    }
+        };
+        updateCount();
+    });
+};
+
+// This "Observer" waits for the user to scroll to the section
+const counterSection = document.querySelector('.counters');
+if (counterSection) {
+    const observer = new IntersectionObserver((entries, observer) => {
+        const [entry] = entries;
+        // If the section is visible on screen...
+        if (entry.isIntersecting) {
+            animateCounters(); // ...start the animation
+            observer.unobserve(counterSection); // ...and stop watching (so it runs only once)
+        }
+    }, {
+        root: null,
+        threshold: 0.4 // Trigger when 40% of the section is visible
+    });
+
+    observer.observe(counterSection);
+}
 
     // --- LIVE EVENT SECTION LOGIC ---
     const liveContent = document.getElementById('live-content');
