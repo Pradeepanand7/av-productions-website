@@ -214,7 +214,10 @@ section {
     font-size: 3rem;
     color: var(--primary-color);
 }
-
+.counter::after {
+    content: "+";
+    margin-left: 2px; /* Optional: tiny space between number and + */
+}
 /* --- SERVICES --- */
 .services-grid {
     display: grid;
