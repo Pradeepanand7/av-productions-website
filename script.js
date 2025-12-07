@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
    // --- ANIMATED COUNTERS FIX ---
 const counters = document.querySelectorAll('.counter');
-const speed = 200; // The lower the slower
+const speed = 400; // The lower the slower
 
 const animateCounters = () => {
     counters.forEach(counter => {
