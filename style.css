@@ -316,6 +316,39 @@ section {
     width: 100%;
     height: 100%;
 }
+/* --- INSTAGRAM VIEW STYLING --- */
+#instagram-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.instagram-container {
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 350px; /* Width of a standard phone */
+    height: 620px; /* Height of a vertical reel */
+    margin: 2rem auto;
+    box-shadow: 0 10px 30px rgba(255, 106, 0, 0.2); /* Orange glow */
+    border: 1px solid #333;
+}
+
+.instagram-container iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mobile responsiveness for the reel */
+@media (max-width: 450px) {
+    .instagram-container {
+        width: 100%;
+        max-width: 320px;
+        height: 580px;
+    }
+}
 
 /* --- GALLERY SECTION (Folder Style) --- */
 
