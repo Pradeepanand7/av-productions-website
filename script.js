@@ -90,8 +90,8 @@ if (liveContent) {
         
         // --- 2. INSTAGRAM DETAILS (Shows when no event is active) ---
         // Paste the ID of your reel here (e.g. for instagram.com/reel/C_xyz123/, the ID is C_xyz123)
-        instagramReelId: "DBS8uB4S_lK", 
-        instagramProfileUrl: "https://www.instagram.com/avproductions"
+        instagramReelId: "https://www.instagram.com/reel/DPjbbIRj5lt/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", 
+        instagramProfileUrl: "https://www.instagram.com/avproductions_events?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
     };
 
     // DOM Elements
