@@ -73,25 +73,26 @@ if (counterSection) {
     observer.observe(counterSection);
 }
 
-    // --- LIVE EVENT SECTION LOGIC (UPDATED) ---
+    // --- UPDATED LIVE EVENT LOGIC ---
 const liveContent = document.getElementById('live-content');
 
 if (liveContent) {
     const eventConfig = {
-        // --- 1. SET YOUR EVENT DETAILS HERE ---
-        // If there is NO upcoming event, set eventDate to a past date (e.g., "2020-01-01")
-        eventDate: "2025-09-27T17:00:00", 
+        // 1. SET EVENT DETAILS (Use a past date to test Instagram View)
+        eventDate: "2020-01-01T17:00:00", 
         
         eventTitle: "EVENT COVERAGE",
         eventName: "BOOK LAUNCH EVENT",
-        eventDescription: "Watch the celebration live from the venue.",
+        eventDescription: "Watch the celebration live.",
         previewImageUrl: "assets/live/thumbnails/live.jpg",
-        liveStreamUrl: "https://www.youtube.com/embed/LXb3EKWsInQ", // YouTube Embed Link
+        liveStreamUrl: "https://www.youtube.com/embed/LXb3EKWsInQ",
         
-        // --- 2. INSTAGRAM DETAILS (Shows when no event is active) ---
-        // Paste the ID of your reel here (e.g. for instagram.com/reel/C_xyz123/, the ID is C_xyz123)
-        instagramReelId: "https://www.instagram.com/reel/DPjbbIRj5lt/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", 
-        instagramProfileUrl: "https://www.instagram.com/avproductions_events?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        // 2. INSTAGRAM DETAILS
+        // This is the direct link to your reel
+        instagramReelLink: "https://www.instagram.com/reel/DBS8uB4S_lK/",
+        // IMPORTANT: You need an image file to show as the thumbnail. 
+        // You can take a screenshot of your reel and save it as 'reel-cover.jpg'
+        reelCoverImage: "assets/live/thumbnails/live.jpg" 
     };
 
     // DOM Elements
@@ -102,12 +103,14 @@ if (liveContent) {
     // Views
     const countdownView = document.getElementById('countdown-view');
     const playerView = document.getElementById('player-view');
-    const instagramView = document.getElementById('instagram-view'); // New View
+    const instagramView = document.getElementById('instagram-view');
 
-    // Content Elements
+    // Instagram Elements
+    const instaLink = document.getElementById('insta-link');
+    const instaCover = document.getElementById('insta-cover');
+
+    // Live Event Elements
     const livePlayer = document.getElementById('live-player');
-    const instaPlayer = document.getElementById('insta-player');
-    const instaRedirectBtn = document.getElementById('insta-redirect-btn');
     const livePreviewImage = document.getElementById('live-preview-image');
     const liveEventName = document.getElementById('live-event-name');
     const liveEventDescription = document.getElementById('live-event-description');
@@ -118,11 +121,12 @@ if (liveContent) {
     const minutesEl = document.getElementById('minutes');
     const secondsEl = document.getElementById('seconds');
 
-    // --- SETUP INSTAGRAM VIEW ---
-    // This constructs the embed URL for the reel
-    const instaEmbedUrl = `https://www.instagram.com/p/${eventConfig.instagramReelId}/embed/captioned/?cr=1&v=14&wp=540`;
-    instaPlayer.src = instaEmbedUrl;
-    instaRedirectBtn.href = eventConfig.instagramProfileUrl;
+    // --- SETUP INSTAGRAM VIEW DATA ---
+    // We set the image and link immediately
+    if(instaLink && instaCover) {
+        instaLink.href = eventConfig.instagramReelLink;
+        instaCover.src = eventConfig.reelCoverImage;
+    }
 
     // --- LOGIC ---
     const targetDate = new Date(eventConfig.eventDate).getTime();
@@ -131,87 +135,60 @@ if (liveContent) {
         const now = new Date().getTime();
         const distance = targetDate - now;
 
-        // "isLive" means we are within 4 hours AFTER the start time
         const isLive = distance <= 0 && distance > - (1000 * 60 * 60 * 4);
         const isUpcoming = distance > 0;
 
         if (isUpcoming) { 
-            // --- SCENARIO 1: UPCOMING EVENT ---
+            // ... (Keep existing UPCOMING logic) ...
             eventTitleEl.style.display = 'block';
             eventTitleEl.innerText = eventConfig.eventTitle;
-            
             liveNavlink.style.display = 'list-item';
             liveNavlink.querySelector('a').innerHTML = '🕒 Upcoming Event';
             liveNavlink.querySelector('a').href = '#live-event';
-            
-            if(heroLiveBtn) {
-                heroLiveBtn.style.display = 'inline-block';
-                heroLiveBtn.innerHTML = '🕒 View Upcoming Event';
-                heroLiveBtn.href = '#live-event';
-            }
-
-            // Show Countdown, Hide others
             countdownView.style.display = 'block';
             playerView.style.display = 'none';
             instagramView.style.display = 'none';
-
-            // Populate Info
+            
+            // Populate Timer & Text
             liveEventName.innerText = eventConfig.eventName;
             liveEventDescription.innerText = eventConfig.eventDescription;
             livePreviewImage.src = eventConfig.previewImageUrl;
-
-            // Timer Logic
+            
             daysEl.innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
             hoursEl.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
             minutesEl.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
             secondsEl.innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
 
         } else if (isLive) { 
-            // --- SCENARIO 2: LIVE NOW ---
+             // ... (Keep existing LIVE logic) ...
             eventTitleEl.style.display = 'block';
-            
             liveNavlink.style.display = 'list-item';
             liveNavlink.querySelector('a').innerHTML = '🔴 Live Now';
-            liveNavlink.querySelector('a').href = '#live-event';
-
-            if(heroLiveBtn) {
-                heroLiveBtn.style.display = 'inline-block';
-                heroLiveBtn.innerHTML = '🔴 Watch Live!';
-                heroLiveBtn.href = '#live-event';
-            }
-
-            // Show Player, Hide others
             countdownView.style.display = 'none';
             instagramView.style.display = 'none';
             playerView.style.display = 'block';
-
             if (livePlayer.src !== eventConfig.liveStreamUrl + "?autoplay=1") {
                 livePlayer.setAttribute('src', eventConfig.liveStreamUrl + "?autoplay=1");
             }
 
         } else { 
-            // --- SCENARIO 3: NO EVENT (DEFAULT) ---
-            // This is where we show the Instagram Reel
+            // --- SCENARIO 3: NO EVENT (SHOW INSTAGRAM CARD) ---
+            eventTitleEl.style.display = 'none';
             
-            eventTitleEl.style.display = 'none'; // Hide the "EVENT COVERAGE" title
-            
-            // Update Nav Link to point to social media
+            // Update Nav Link
             liveNavlink.style.display = 'list-item';
             liveNavlink.querySelector('a').innerHTML = '📷 Our Instagram';
-            liveNavlink.querySelector('a').href = eventConfig.instagramProfileUrl;
+            liveNavlink.querySelector('a').href = eventConfig.instagramReelLink;
             liveNavlink.querySelector('a').target = "_blank";
 
-            // Hide the Hero Button (or point it to Insta)
-            if(heroLiveBtn) {
-                heroLiveBtn.style.display = 'none'; 
-            }
+            // Hide Hero Button
+            if(heroLiveBtn) heroLiveBtn.style.display = 'none'; 
 
-            // Show Instagram, Hide others
+            // Show Instagram Card
             countdownView.style.display = 'none';
             playerView.style.display = 'none';
-            instagramView.style.display = 'flex'; // Using flex to center content
+            instagramView.style.display = 'block'; // Block to show the card
             
-            // Stop the timer since we don't need it
             clearInterval(interval);
         }
     }, 1000);
