@@ -216,7 +216,7 @@ section {
 }
 .counter::after {
     content: "+";
-    margin-left: 2px; /* Optional: tiny space between number and + */
+    margin-left: 2px;
 }
 /* --- SERVICES --- */
 .services-grid {
