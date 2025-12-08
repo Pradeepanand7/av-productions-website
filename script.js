@@ -92,18 +92,18 @@ if (liveContent) {
         instaReels: [
             {
                 // Reel 1 (Left)
-                link: "https://www.instagram.com/reel/DBS8uB4S_lK/", // Replace with actual link
-                thumb: "assets/live/thumbnails/reel-thumb-1.jpg"     // Your new asset name
+                link: "https://www.instagram.com/reel/DPjbbIRj5lt/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", // Replace with actual link
+                thumb: "assets/live/thumbnails/reel-thumb-1.jpg"     // Utsav bts
             },
             {
                 // Reel 2 (Center)
-                link: "https://www.instagram.com/reel/ANOTHER_LINK/", // Replace with actual link
-                thumb: "assets/live/thumbnails/reel-thumb-2.jpg"      // Your new asset name
+                link: "https://www.instagram.com/reel/DPR02s0k0Kn/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==", // Replace with actual link
+                thumb: "assets/live/thumbnails/reel-thumb-2.jpg"      // Karthik reel
             },
             {
                 // Reel 3 (Right)
-                link: "https://www.instagram.com/reel/THIRD_LINK/",   // Replace with actual link
-                thumb: "assets/live/thumbnails/reel-thumb-3.jpg"      // Your new asset name
+                link: "https://www.instagram.com/reel/DNdoEtLImSJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",   // Replace with actual link
+                thumb: "assets/live/thumbnails/reel-thumb-3.jpg"      // Poltical event
             }
         ]
     };
