@@ -89,7 +89,7 @@ if (liveContent) {
         
         // 2. INSTAGRAM DETAILS
         // This is the direct link to your reel
-        instagramReelLink: "https://www.instagram.com/reel/DBS8uB4S_lK/",
+        instagramReelLink: "https://www.instagram.com/reel/DPjbbIRj5lt/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
         // IMPORTANT: You need an image file to show as the thumbnail. 
         // You can take a screenshot of your reel and save it as 'reel-cover.jpg'
         reelCoverImage: "assets/live/thumbnails/live.jpg" 
