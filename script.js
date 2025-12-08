@@ -193,7 +193,7 @@ if (liveContent) {
             liveNavlink.style.display = 'list-item';
             liveNavlink.querySelector('a').innerHTML = '📷 Our Instagram';
             // You might want to change this to your main profile link instead of a specific reel
-            liveNavlink.querySelector('a').href = "https://www.instagram.com/avproductions"; 
+            liveNavlink.querySelector('a').href = "https://www.instagram.com/avproductions_events?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="; 
             liveNavlink.querySelector('a').target = "_blank";
 
             if(heroLiveBtn) heroLiveBtn.style.display = 'none'; 
